@@ -8,9 +8,10 @@ urlpatterns = [
     url(r'^register_copy/$', views.register_copy),#注册页重名检测
     url(r'^login/$', views.login),#登陆页面
     url(r'^login_handle/$', views.login_handle),#登陆页面验证数据
-    url(r'^$', views.center),#用户中心
+    url(r'^center/$', views.center),#用户中心
     url(r'^order/$', views.order),#订单
     url(r'^site/$', views.site),#收货地址
     url(r'^logout/$', views.logout),#退出登陆
+    #url(r'^$', views.index),
 
 ]

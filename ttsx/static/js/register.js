@@ -47,17 +47,32 @@ $(function(){
 			error_name = true;
 		}
 		else
+		/*{
+			$.post('/user/register_copy/',
+				{'uname':$('#user_name').val(),'csrfmiddlewaretoken':$('input:first').val()},
+				function (copy) {
+					if(copy.haha>=1){
+						//用户名不可用
+						$('#user_name').next().html('用户名已经存在').show();
+						error_name = true;
+					}else{
+						//用户名可用
+						$('#user_name').next().hide();
+						error_name = false;
+					}
+            });
+		}*/
+
 		{
 			$.get('/user/register_copy/',{'uname':$('#user_name').val()},function (copy) {
 				if(copy.haha>=1){
 					//用户名不可用
 					$('#user_name').next().html('用户名已经存在').show();
-					error_name = true;
-				}else{
+					error_name = true;}
+				else{
 					//用户名可用
 					$('#user_name').next().hide();
-					error_name = false;
-				}
+					error_name = false;}
             });
 		}
 	}

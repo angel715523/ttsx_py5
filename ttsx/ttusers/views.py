@@ -5,6 +5,7 @@ from models import UserInfo
 from hashlib import sha1
 import datetime
 import user_decorators
+
 # 注册页面
 def register(request):
     content = {'title':'注册页面', 'top':'0'}
@@ -34,6 +35,7 @@ def register_handle(request):
 def register_copy(request):
     #接收用户名
     username = request.GET.get('uname')
+    #username = request.POST.get('uname')
     #查询当前个数
     copy = UserInfo.objects.filter(uname=username).count()
     #返回json{'haha':1或0}
@@ -68,8 +70,9 @@ def login_handle(request):
     else:
         # 用户名存在
         if result[0].upwd == upwd_sha1:
-            # 密码正确，登陆成功
-            response = redirect('/user/')
+            # 密码正确，登陆成功。添加中间件，例如在列表页点登陆，登陆后跳回列表页（‘/’默认跳转index）
+            response = redirect(request.session.get('url_path', '/'))
+            #response = redirect('/user/')
             #在session中保存用户名编号，用于记录用户对应信息
             request.session['uid'] = result[0].id
             #右上角欢迎中显示是那个用户登陆
@@ -86,7 +89,7 @@ def login_handle(request):
             # 密码错误
             content['error_pwd'] = '密码错误'
             return render(request, 'ttusers/login.html', content)
-#
+#退出登陆,返回登陆页面
 def logout(request):
     request.session.flush()
     return redirect('/user/login/')
@@ -122,6 +125,9 @@ def site(request):
     content = {'title':'收货地址', 'info':user}
     return render(request, 'ttusers/site.html', content)
 
+def index(request):
+    content = {}
+    return render(request, 'index.html', content)
 
 
 
