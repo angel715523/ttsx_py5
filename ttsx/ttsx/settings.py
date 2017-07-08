@@ -1,3 +1,4 @@
+#coding=utf-8
 """
 Django settings for ttsx project.
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ttusers', #用户模块
 )
 
 MIDDLEWARE_CLASSES = (
