@@ -40,24 +40,33 @@ $(function(){
 
 	function check_user_name(){
 		var len = $('#user_name').val().length;
-		if(len<5||len>20)
+		if(len<3||len>20)
 		{
-			$('#user_name').next().html('请输入5-20个字符的用户名')
+			$('#user_name').next().html('请输入3-20个字符的用户名')
 			$('#user_name').next().show();
 			error_name = true;
 		}
 		else
 		{
-			$('#user_name').next().hide();
-			error_name = false;
+			$.get('/user/register_copy/',{'uname':$('#user_name').val()},function (copy) {
+				if(copy.haha>=1){
+					//用户名不可用
+					$('#user_name').next().html('用户名已经存在').show();
+					error_name = true;
+				}else{
+					//用户名可用
+					$('#user_name').next().hide();
+					error_name = false;
+				}
+            });
 		}
 	}
 
 	function check_pwd(){
 		var len = $('#pwd').val().length;
-		if(len<8||len>20)
+		if(len<3||len>20)
 		{
-			$('#pwd').next().html('密码最少8位，最长20位')
+			$('#pwd').next().html('密码最少3位，最长20位')
 			$('#pwd').next().show();
 			error_password = true;
 		}
