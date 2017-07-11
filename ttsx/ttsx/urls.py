@@ -19,11 +19,8 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^user/', include('ttusers.urls')),
-    #url(r'^$', include('ttusers.urls')),
-
-
-
-
+    url(r'^', include('ttgoods.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
 
 
 

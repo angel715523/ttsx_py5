@@ -8,8 +8,8 @@ import user_decorators
 
 # 注册页面
 def register(request):
-    content = {'title':'注册页面', 'top':'0'}
-    return render(request, 'ttusers/register.html', content)
+    context = {'title':'注册页面', 'top':'0'}
+    return render(request, 'ttusers/register.html', context)
 # 注册页面连接数据库
 def register_handle(request):
     # 接收用户请求
@@ -39,15 +39,15 @@ def register_copy(request):
     #查询当前个数
     copy = UserInfo.objects.filter(uname=username).count()
     #返回json{'haha':1或0}
-    content = {'haha':copy}
-    return JsonResponse(content)
+    context = {'haha':copy}
+    return JsonResponse(context)
 
 #登陆页面
 def login(request):
     #login_handle判断记住用户名选项是否勾选返回给rember
     rember = request.COOKIES.get('uname', '')
-    content = {'title':'登陆页面', 'uname':rember, 'top':'0'}
-    return render(request, 'ttusers/login.html', content)
+    context = {'title':'登陆页面', 'uname':rember, 'top':'0'}
+    return render(request, 'ttusers/login.html', context)
 #登陆页面连接数据库
 def login_handle(request):
     #接收用户请求
@@ -59,14 +59,14 @@ def login_handle(request):
     s1 = sha1()
     s1.update(upwd)
     upwd_sha1 = s1.hexdigest()
-    content = {'title':'登陆页面', 'uname':uname, 'upwd':upwd, 'top':'0'}
+    context = {'title':'登陆页面', 'uname':uname, 'upwd':upwd, 'top':'0'}
     #用户名判断
     # 如果没有查到数据则返回[]，如果查到数据则返回[UserInfo对象]
     result = UserInfo.objects.filter(uname=uname)
     if len(result) == 0:
         # 用户名不存在
-        content['error_name'] = '用户名错误'
-        return render(request, 'ttusers/login.html', content)
+        context['error_name'] = '用户名错误'
+        return render(request, 'ttusers/login.html', context)
     else:
         # 用户名存在
         if result[0].upwd == upwd_sha1:
@@ -87,8 +87,8 @@ def login_handle(request):
             return response
         else:
             # 密码错误
-            content['error_pwd'] = '密码错误'
-            return render(request, 'ttusers/login.html', content)
+            context['error_pwd'] = '密码错误'
+            return render(request, 'ttusers/login.html', context)
 #退出登陆,返回登陆页面
 def logout(request):
     request.session.flush()
@@ -98,13 +98,13 @@ def logout(request):
 @user_decorators.islogin
 def center(request):
     user =UserInfo.objects.get(pk = request.session['uid'])
-    content = {'title':'用户中心', 'user':user}
-    return render(request, 'ttusers/center.html', content)
+    context = {'title':'用户中心', 'user':user}
+    return render(request, 'ttusers/center.html', context)
 #订单
 @user_decorators.islogin
 def order(request):
-    content = {'title':'全部订单'}
-    return render(request, 'ttusers/order.html', content)
+    context = {'title':'全部订单'}
+    return render(request, 'ttusers/order.html', context)
 #收货地址
 @user_decorators.islogin
 def site(request):
@@ -122,12 +122,12 @@ def site(request):
         user.ucode = ucode
         user.uphone = uphone
         user.save()
-    content = {'title':'收货地址', 'info':user}
-    return render(request, 'ttusers/site.html', content)
+    context = {'title':'收货地址', 'info':user}
+    return render(request, 'ttusers/site.html', context)
 
 def index(request):
-    content = {}
-    return render(request, 'index.html', content)
+    context = {}
+    return render(request, 'index.html', context)
 
 
 

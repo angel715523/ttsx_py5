@@ -12,6 +12,4 @@ urlpatterns = [
     url(r'^order/$', views.order),#订单
     url(r'^site/$', views.site),#收货地址
     url(r'^logout/$', views.logout),#退出登陆
-    #url(r'^$', views.index),
-
 ]

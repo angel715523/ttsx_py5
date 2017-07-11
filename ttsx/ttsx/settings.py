@@ -39,6 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ttusers', #用户模块
+    'ttgoods', #商品模块
+    'tinymce', #富文本
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,5 +113,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
+#上传路径
 MEDIA_ROOT=os.path.join(BASE_DIR,'static')
+#富文本设置
+TINYMCE_DEFAULT_CONFIG = {
+    'theme':'advanced',
+    'width':600,
+    'height':400,
+}
+
